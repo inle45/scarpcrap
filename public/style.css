@@ -132,7 +132,7 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
 /* ── Mise en page ───────────────────────────────────────────── */
 
 .panel { padding: 20px; max-width: 1400px; margin: 0 auto; }
-.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 16px; }
 
 .card {
   background: var(--bg-elevated);
@@ -235,9 +235,30 @@ tr:last-child td { border-bottom: none; }
 .footer { padding: 24px 20px 40px; max-width: 1400px; margin: 0 auto; }
 
 @media (max-width: 720px) {
-  .deal { grid-template-columns: 1fr; }
+  .panel, .footer { padding: 14px; }
+
+  .topbar { padding: 10px 14px; gap: 10px; }
+  .tabs { order: 3; width: 100%; justify-content: space-between; margin-left: 0; }
+  .tab { flex: 1; padding: 10px 4px; font-size: 13px; text-align: center; }
+  .topbar-actions { margin-left: 0; }
+
+  .filters { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 12px; }
+  .filters label { grid-column: span 1; }
+  .filters input, .filters select { min-width: 0; width: 100%; }
+  .filters button { grid-column: 1 / -1; }
+
+  .deal { grid-template-columns: 1fr; padding: 12px; }
   .deal-thumb { width: 100%; height: 160px; }
   .deal-actions { flex-direction: row; }
-  .tabs { order: 3; width: 100%; }
-  .topbar-actions { margin-left: 0; }
+  .deal-actions > button { flex: 1; }
+
+  .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .trust-item { grid-template-columns: 1fr; gap: 2px; }
+  .trust-detail { grid-column: 1; margin-top: 0; }
+
+  .tiles { grid-template-columns: repeat(2, 1fr); }
+
+  table { font-size: 12px; }
+  th, td { padding: 6px 8px; }
 }
