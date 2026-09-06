@@ -39,6 +39,9 @@ hr { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
 
 /* ── Ecran de deverrouillage ────────────────────────────────── */
 
+.gate[hidden] {
+  display: none;
+}
 .gate {
   position: fixed; inset: 0;
   display: grid; place-items: center;
