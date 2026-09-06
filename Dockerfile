@@ -39,9 +39,10 @@ COPY package.json ./
 COPY public ./public
 COPY config ./config
 
-# La base vit sur un volume monte par la plateforme d'hebergement.
-RUN mkdir -p /app/data && chown -R node:node /app
-USER node
+# La base vit sur un volume monte par la plateforme d'hebergement. Le
+# proprietaire de ce point de montage est impose par la plateforme (souvent
+# root) : on reste root ici plutot que de risquer un EACCES au demarrage.
+RUN mkdir -p /app/data
 
 EXPOSE 8080
 
