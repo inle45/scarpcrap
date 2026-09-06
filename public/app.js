@@ -67,7 +67,12 @@ async function api(path, options = {}) {
   if (state.token) headers.Authorization = `Bearer ${state.token}`;
   if (options.body) headers['Content-Type'] = 'application/json';
 
-  const res = await fetch(path, { ...options, headers });
+  // Parametre jetable : un cache intermediaire (proxy mobile, edge du
+  // fournisseur d'hebergement) peut ignorer Cache-Control et rejouer une
+  // vieille reponse pour une URL identique. Une URL toujours differente
+  // rend ce cache inoffensif, quoi qu'il fasse.
+  const bust = (path.includes('?') ? '&' : '?') + '_=' + Date.now();
+  const res = await fetch(path + bust, { ...options, headers, cache: 'no-store' });
 
   if (res.status === 401) {
     openGate('Jeton refuse. Verifie AUTH_TOKEN cote serveur.');
