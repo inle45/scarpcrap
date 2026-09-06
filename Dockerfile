@@ -39,10 +39,9 @@ COPY package.json ./
 COPY public ./public
 COPY config ./config
 
-# La base vit sur un volume : le conteneur reste jetable.
+# La base vit sur un volume monte par la plateforme d'hebergement.
 RUN mkdir -p /app/data && chown -R node:node /app
 USER node
-VOLUME ["/app/data"]
 
 EXPOSE 8080
 
