@@ -1,0 +1,183 @@
+[
+  {
+    "id": "ebay-music-vinyl-lot",
+    "source": "ebay",
+    "domain": "music",
+    "enabled": true,
+    "query": "vinyle 33 tours lot",
+    "categoryIds": [
+      "306"
+    ],
+    "minPriceEur": 15,
+    "maxPriceEur": 120,
+    "conditions": [
+      "good",
+      "fair"
+    ],
+    "limit": 60,
+    "note": "Lots de vinyles sous-titres sur eBay, revente a la piece sur Discogs."
+  },
+  {
+    "id": "ebay-music-vinyl-rock",
+    "source": "ebay",
+    "domain": "music",
+    "enabled": true,
+    "query": "vinyl lp rock original pressing",
+    "categoryIds": [
+      "306"
+    ],
+    "minPriceEur": 10,
+    "maxPriceEur": 90,
+    "conditions": [
+      "good",
+      "like_new"
+    ],
+    "limit": 60,
+    "note": "Pressages originaux ; Discogs price_suggestions donne un prix de vente reel."
+  },
+  {
+    "id": "ebay-lego-sets",
+    "source": "ebay",
+    "domain": "lego",
+    "enabled": true,
+    "query": "lego set complet boite",
+    "categoryIds": [
+      "19006"
+    ],
+    "minPriceEur": 20,
+    "maxPriceEur": 250,
+    "conditions": [
+      "good",
+      "like_new",
+      "new"
+    ],
+    "limit": 60,
+    "note": "Sets LEGO ; comparaison BrickLink « sold », la donnee la plus fiable du projet."
+  },
+  {
+    "id": "ebay-lego-vrac",
+    "source": "ebay",
+    "domain": "lego",
+    "enabled": true,
+    "query": "lego vrac lot kg",
+    "categoryIds": [
+      "19006"
+    ],
+    "minPriceEur": 15,
+    "maxPriceEur": 150,
+    "conditions": [
+      "good",
+      "fair"
+    ],
+    "limit": 40,
+    "note": "Lots au poids : marge elevee mais tri chronophage, surveiller le ROI/jour."
+  },
+  {
+    "id": "ebay-audio-casques",
+    "source": "ebay",
+    "domain": "electronics",
+    "enabled": true,
+    "query": "casque audio sans fil",
+    "categoryIds": [
+      "112529"
+    ],
+    "minPriceEur": 25,
+    "maxPriceEur": 250,
+    "conditions": [
+      "good",
+      "like_new"
+    ],
+    "limit": 50,
+    "note": "Casques Sony/Bose/Sennheiser ; comparaison eBay DE souvent 15-25 % au-dessus."
+  },
+  {
+    "id": "ebay-photo-objectifs",
+    "source": "ebay",
+    "domain": "electronics",
+    "enabled": true,
+    "query": "objectif appareil photo monture",
+    "categoryIds": [
+      "3323"
+    ],
+    "minPriceEur": 40,
+    "maxPriceEur": 400,
+    "conditions": [
+      "good",
+      "like_new"
+    ],
+    "limit": 50,
+    "note": "Optiques : peu de contrefacon, prix stables, acheteurs internationaux."
+  },
+  {
+    "id": "ebay-jeux-retro",
+    "source": "ebay",
+    "domain": "videogames",
+    "enabled": true,
+    "query": "jeu retro console complet boite",
+    "categoryIds": [
+      "139973"
+    ],
+    "minPriceEur": 15,
+    "maxPriceEur": 200,
+    "conditions": [
+      "good",
+      "like_new"
+    ],
+    "limit": 50,
+    "note": "Retro en boite ; verifier les repro-carts, le score de confiance compte double ici."
+  },
+  {
+    "id": "ebay-montres-mecaniques",
+    "source": "ebay",
+    "domain": "watches",
+    "enabled": true,
+    "query": "montre mecanique automatique vintage",
+    "categoryIds": [
+      "31387"
+    ],
+    "minPriceEur": 60,
+    "maxPriceEur": 600,
+    "conditions": [
+      "good",
+      "like_new"
+    ],
+    "limit": 40,
+    "note": "Domaine a plus fort risque de contrefacon : ne rien acheter sous 85 de confiance."
+  },
+  {
+    "id": "ebay-sneakers",
+    "source": "ebay",
+    "domain": "sneakers",
+    "enabled": true,
+    "query": "sneakers baskets edition",
+    "categoryIds": [
+      "15709"
+    ],
+    "minPriceEur": 40,
+    "maxPriceEur": 350,
+    "conditions": [
+      "like_new",
+      "new"
+    ],
+    "limit": 40,
+    "note": "Contrefacon frequente ; privilegier les vendeurs a fort historique."
+  },
+  {
+    "id": "ebay-cartes-collection",
+    "source": "ebay",
+    "domain": "collectibles",
+    "enabled": true,
+    "query": "carte collection lot rare",
+    "categoryIds": [
+      "2536"
+    ],
+    "minPriceEur": 15,
+    "maxPriceEur": 200,
+    "conditions": [
+      "good",
+      "like_new"
+    ],
+    "limit": 40,
+    "note": "Lots de cartes ; la valeur se concentre souvent sur 2-3 pieces du lot."
+  }
+]

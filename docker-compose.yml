@@ -1,0 +1,24 @@
+services:
+  scarpcrap:
+    build: .
+    image: scarpcrap:latest
+    container_name: scarpcrap
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      # N'expose que la boucle locale : mets un reverse proxy (Caddy, Traefik)
+      # devant si tu veux y acceder depuis l'exterieur. Le dashboard n'a pas
+      # vocation a etre joignable directement depuis Internet.
+      - "127.0.0.1:8080:8080"
+    volumes:
+      # La base survit aux redeploiements.
+      - ./data:/app/data
+      # Chasses et bareme de frais editables sans reconstruire l'image.
+      - ./config:/app/config:ro
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8080/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+      start_period: 15s

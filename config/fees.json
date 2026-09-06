@@ -1,0 +1,54 @@
+{
+  "ebay": {
+    "marketplace": "ebay",
+    "label": "eBay",
+    "commissionPct": 12.8,
+    "commissionIncludesShipping": true,
+    "fixedCents": 35,
+    "paymentPct": 0,
+    "paymentFixedCents": 0,
+    "shipOutCents": 690,
+    "packagingCents": 150,
+    "defaultDaysToSell": 25,
+    "note": "Commission pro par defaut (12,8 % + 0,35 EUR). Passe a 0 si tu vends en particulier."
+  },
+  "discogs": {
+    "marketplace": "discogs",
+    "label": "Discogs",
+    "commissionPct": 9,
+    "commissionIncludesShipping": true,
+    "fixedCents": 0,
+    "paymentPct": 2.9,
+    "paymentFixedCents": 30,
+    "shipOutCents": 550,
+    "packagingCents": 200,
+    "defaultDaysToSell": 35,
+    "note": "Commission 9 % + encaissement ~2,9 %. Emballage vinyle plus cher que la moyenne."
+  },
+  "bricklink": {
+    "marketplace": "bricklink",
+    "label": "BrickLink",
+    "commissionPct": 3,
+    "commissionIncludesShipping": false,
+    "fixedCents": 0,
+    "paymentPct": 2.9,
+    "paymentFixedCents": 30,
+    "shipOutCents": 790,
+    "packagingCents": 250,
+    "defaultDaysToSell": 40,
+    "note": "Commission 3 %. Colis LEGO souvent volumineux : port et emballage plus eleves."
+  },
+  "demo": {
+    "marketplace": "demo",
+    "label": "Demo",
+    "commissionPct": 10,
+    "commissionIncludesShipping": true,
+    "fixedCents": 0,
+    "paymentPct": 0,
+    "paymentFixedCents": 0,
+    "shipOutCents": 690,
+    "packagingCents": 150,
+    "defaultDaysToSell": 25,
+    "note": "Frais fictifs (mode demo)."
+  }
+}

@@ -1,0 +1,17 @@
+node_modules/
+dist/
+*.log
+
+# Base de donnees SQLite (volume local, ne jamais committer)
+data/*.db
+data/*.db-shm
+data/*.db-wal
+
+# Secrets
+.env
+.env.local
+
+# Divers
+.DS_Store
+coverage/
+*.tsbuildinfo

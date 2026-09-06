@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>scarpcrap — deals du jour</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💰</text></svg>" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+
+<!-- Ecran de deverrouillage : le jeton reste dans le localStorage du navigateur. -->
+<div id="gate" class="gate" hidden>
+  <form id="gate-form" class="gate-card">
+    <h1>scarpcrap</h1>
+    <p class="muted">Dashboard personnel d'arbitrage. Entre le jeton defini dans <code>AUTH_TOKEN</code>.</p>
+    <input id="gate-token" type="password" placeholder="Jeton d'acces" autocomplete="current-password" />
+    <button type="submit">Deverrouiller</button>
+    <p id="gate-error" class="error" hidden></p>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">💰</span>
+      <div>
+        <strong>scarpcrap</strong>
+        <span id="market-label" class="muted small"></span>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button class="tab is-active" data-tab="deals">Deals</button>
+      <button class="tab" data-tab="synthese">Synthese</button>
+      <button class="tab" data-tab="capital">Capital</button>
+      <button class="tab" data-tab="systeme">Systeme</button>
+    </nav>
+    <div class="topbar-actions">
+      <span id="run-state" class="muted small"></span>
+      <button id="btn-run" class="btn btn-primary">Lancer un cycle</button>
+    </div>
+  </header>
+
+  <div id="banner" class="banner" hidden></div>
+
+  <!-- ───────────────────────────── Deals ───────────────────────────── -->
+  <main id="tab-deals" class="panel">
+    <section class="filters">
+      <label>Domaine
+        <select id="f-domain"><option value="all">Tous</option></select>
+      </label>
+      <label>Source
+        <select id="f-source"><option value="all">Toutes</option></select>
+      </label>
+      <label>Statut
+        <select id="f-status">
+          <option value="new">A traiter</option>
+          <option value="bought">Achetes</option>
+          <option value="skipped">Ecartes</option>
+          <option value="sold">Vendus</option>
+          <option value="all">Tous</option>
+        </select>
+      </label>
+      <label>Tri
+        <select id="f-sort">
+          <option value="roi_per_day">ROI / jour</option>
+          <option value="profit">Profit net</option>
+          <option value="roi">ROI %</option>
+          <option value="trust">Confiance</option>
+          <option value="recent">Plus recents</option>
+        </select>
+      </label>
+      <label>ROI min (%)
+        <input id="f-roi" type="number" step="5" />
+      </label>
+      <label>Confiance min
+        <input id="f-trust" type="number" step="5" min="0" max="100" />
+      </label>
+      <label>Profit min (EUR)
+        <input id="f-profit" type="number" step="1" />
+      </label>
+      <button id="btn-refresh" class="btn">Actualiser</button>
+    </section>
+
+    <p id="deals-summary" class="muted small"></p>
+    <div id="deals" class="deals"></div>
+    <p id="deals-empty" class="empty" hidden></p>
+  </main>
+
+  <!-- ──────────────────────────── Synthese ─────────────────────────── -->
+  <main id="tab-synthese" class="panel" hidden>
+    <div class="grid-2">
+      <section class="card">
+        <h2>Indice de revente par categorie</h2>
+        <p class="muted small">
+          Marge mediane observee par domaine. Sous 5 observations, un domaine n'est pas affiche :
+          l'indice ne veut encore rien dire.
+        </p>
+        <canvas id="chart-categories" height="220"></canvas>
+      </section>
+
+      <section class="card">
+        <h2>ROI par jour et par domaine</h2>
+        <p class="muted small">Ce que le capital immobilise rapporte quotidiennement, par domaine.</p>
+        <canvas id="chart-domains" height="220"></canvas>
+      </section>
+
+      <section class="card">
+        <h2>Repartition risque / profit</h2>
+        <p class="muted small">
+          Chaque point est un deal. En haut a droite : profit eleve et confiance elevee.
+          En haut a gauche : les pieges.
+        </p>
+        <canvas id="chart-risk" height="260"></canvas>
+      </section>
+
+      <section class="card">
+        <h2>Historique de mes decisions</h2>
+        <p class="muted small">Achats, rejets et ventes dans le temps.</p>
+        <canvas id="chart-decisions" height="260"></canvas>
+      </section>
+    </div>
+
+    <section class="card">
+      <h2>Dernieres decisions</h2>
+      <div id="decisions-table" class="table-wrap"></div>
+    </section>
+  </main>
+
+  <!-- ───────────────────────────── Capital ─────────────────────────── -->
+  <main id="tab-capital" class="panel" hidden>
+    <section id="capital-tiles" class="tiles"></section>
+    <section class="card">
+      <h2>Positions</h2>
+      <p class="muted small">
+        Saisis le prix de vente reel une fois l'article ecoule : c'est ce qui alimente
+        l'indice de revente et le profit net cumule.
+      </p>
+      <div id="capital-table" class="table-wrap"></div>
+    </section>
+  </main>
+
+  <!-- ───────────────────────────── Systeme ─────────────────────────── -->
+  <main id="tab-systeme" class="panel" hidden>
+    <div class="grid-2">
+      <section class="card">
+        <h2>Sources</h2>
+        <div id="connectors"></div>
+      </section>
+
+      <section class="card">
+        <h2>Seuils</h2>
+        <form id="settings-form" class="form">
+          <label>Confiance minimale affichee <input name="minTrustScore" type="number" min="0" max="100" /></label>
+          <label>ROI minimal affiche (%) <input name="minRoiPct" type="number" /></label>
+          <label>Profit net minimal (EUR) <input name="minNetProfitEur" type="number" step="0.5" /></label>
+          <hr />
+          <label>Confiance minimale pour alerter <input name="alertMinTrustScore" type="number" min="0" max="100" /></label>
+          <label>ROI/jour minimal pour alerter (EUR) <input name="alertMinRoiPerDayEur" type="number" step="0.1" /></label>
+          <label>Alertes max par cycle <input name="alertMaxPerRun" type="number" min="1" max="50" /></label>
+          <div class="row">
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <button type="button" id="btn-test-alert" class="btn">Tester l'alerte montre</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Chasses configurees</h2>
+        <p class="muted small">
+          Ajouter un domaine produit ne demande pas de code : edite <code>config/hunts.json</code>.
+        </p>
+        <div id="hunts" class="table-wrap"></div>
+      </section>
+
+      <section class="card">
+        <h2>Bareme de frais</h2>
+        <p class="muted small">
+          Surchargeable dans <code>config/fees.json</code>. Verifie ces valeurs : une commission
+          fausse fausse tous les ROI.
+        </p>
+        <div id="fees" class="table-wrap"></div>
+      </section>
+
+      <section class="card">
+        <h2>Derniers cycles</h2>
+        <div id="runs" class="table-wrap"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p class="muted small">
+      Outil d'aide a la decision. Il ne realise <strong>aucun achat, aucune enchere et aucun
+      contact vendeur</strong> automatique. Les estimations de revente sont des estimations :
+      verifie toujours l'annonce avant d'engager de l'argent.
+    </p>
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
