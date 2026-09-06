@@ -133,6 +133,7 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .panel { padding: 20px; max-width: 1400px; margin: 0 auto; }
 .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr)); gap: 16px; }
+.grid-2 > * { min-width: 0; }
 
 .card {
   background: var(--bg-elevated);
@@ -140,7 +141,10 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
   border-radius: var(--radius);
   padding: 16px;
   margin-bottom: 16px;
+  min-width: 0;
 }
+
+canvas { max-width: 100%; }
 
 .filters {
   display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end;
