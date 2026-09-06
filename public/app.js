@@ -4,6 +4,14 @@
 
 const TOKEN_KEY = 'scarpcrap.token';
 
+/* Un lien du type site.tld/?token=XXX evite toute saisie manuelle sur
+   mobile (clavier, autocomplete de mot de passe qui interfere, etc). */
+const urlToken = new URLSearchParams(location.search).get('token');
+if (urlToken) {
+  localStorage.setItem(TOKEN_KEY, urlToken.trim());
+  history.replaceState(null, '', location.pathname);
+}
+
 const state = {
   token: localStorage.getItem(TOKEN_KEY) || '',
   status: null,
